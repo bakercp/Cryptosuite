@@ -72,7 +72,7 @@ void Sha1Class::addUncounted(uint8_t data) {
   }
 }
 
-void Sha1Class::write(uint8_t data) {
+size_t Sha1Class::write(uint8_t data) {
   ++byteCount;
   addUncounted(data);
 }
