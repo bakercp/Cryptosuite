@@ -1,4 +1,6 @@
 #include "sha1.h"
+#include <Arduino.h>
+#include "printf.h"
 
 void printHash(uint8_t* hash) {
   int i;
@@ -37,6 +39,7 @@ uint8_t hmacKey4[]={
 
 
 void setup() {
+  printf_begin();
   uint8_t* hash;
   uint32_t a;
   

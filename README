@@ -54,3 +54,6 @@ Verification:
   HMAC-SHA-1: FIPS 198a compliant
   SHA-256: FIPS 180-2, RFC4231 compliant
   HMAC-SHA-256:  RFC4231 compliant
+
+*UPDATE** Added Intel Galileo Support
+Added printf.h so galileo can redirect to serial all the printf requests.

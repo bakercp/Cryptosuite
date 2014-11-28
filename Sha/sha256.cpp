@@ -1,6 +1,13 @@
 #include <string.h>
-#include <avr/io.h>
-#include <avr/pgmspace.h>
+#if !defined(__ARDUINO_X86__)
+	#include <avr/io.h>
+	#include <avr/pgmspace.h>
+#else
+	#define memcpy_P memcpy
+	#undef PROGMEM
+	#define PROGMEM __attribute__(( section(".progmem.data") ))
+	#define pgm_read_dword(p) (*(p))
+#endif
 #include "sha256.h"
 
 uint32_t sha256K[] PROGMEM = {
