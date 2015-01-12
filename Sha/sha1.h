@@ -11,7 +11,7 @@ union _state {
   uint8_t b[HASH_LENGTH];
   uint32_t w[HASH_LENGTH/4];
 };
-#if  (defined(__linux) || defined(linux)) && !defined(__ARDUINO_X86__)
+#if defined(SHA1_LINUX)
 class Sha1Class
 #else
 class Sha1Class : public Print
@@ -22,11 +22,12 @@ class Sha1Class : public Print
     void initHmac(const uint8_t* secret, int secretLength);
     uint8_t* result(void);
     uint8_t* resultHmac(void);
-    #if  (defined(__linux) || defined(linux)) && !defined(__ARDUINO_X86__)
+    #if  defined(SHA1_LINUX)
 	virtual size_t write(uint8_t);
 	size_t write_L(const char *str);
 	size_t write_L(const uint8_t *buffer, size_t size);
 	size_t print(const char* str);
+	double millis();
     #else
 	virtual size_t write(uint8_t);
 	using Print::write;
@@ -42,6 +43,9 @@ class Sha1Class : public Print
     uint32_t byteCount;
     uint8_t keyBuffer[BLOCK_LENGTH];
     uint8_t innerHash[HASH_LENGTH];
+    #if defined(SHA1_LINUX)
+		timeval tv;
+	#endif
     
 };
 extern Sha1Class Sha1;

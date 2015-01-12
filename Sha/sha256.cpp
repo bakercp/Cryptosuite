@@ -163,7 +163,7 @@ uint8_t* Sha256Class::resultHmac(void) {
   for (i=0; i<HASH_LENGTH; i++) write(innerHash[i]);
   return result();
 }
-#if (defined(__linux) || defined(linux)) && !defined(__ARDUINO_X86__)
+#if defined(SHA256_LINUX)
 	size_t Sha256Class::write_L(const char *str){
 		if (str == NULL) return 0;
 		return write_L((const uint8_t *)str, strlen(str));
@@ -177,6 +177,11 @@ uint8_t* Sha256Class::resultHmac(void) {
 	}
 	size_t Sha256Class::print(const char *str){
 		return write_L(str);
+	}
+	
+	double sha256Class::millis(){
+		gettimeofday(&tv, NULL);
+		return (tv.tv_sec + 0.000001 * tv.tv_usec);
 	}
 #endif
 

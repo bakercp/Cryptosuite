@@ -41,23 +41,25 @@ int main(int argc, char** argv)
 {
   uint8_t* hash;
   uint32_t a;
-  
+  double ms;
   // SHA tests
   printf("Test: FIPS 180-2 C.1 and RFC3174 7.3 TEST1\n");
   printf("Expect:a9993e364706816aba3e25717850c26c9cd0d89d\n");
   printf("Result:");
+  ms = sha1.millis();
   Sha1.init();
   Sha1.print("abc");
   printHash(Sha1.result());
-  printf("\n");
+  printf(" Hash took %f \n",(sha1.millis() - ms));
 
   printf("Test: FIPS 180-2 C.2 and RFC3174 7.3 TEST2\n");
   printf("Expect:84983e441c3bd26ebaae4aa1f95129e5e54670f1\n");
   printf("Result:");
+  ms = sha1.millis();
   Sha1.init();
   Sha1.print("abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq");
   printHash(Sha1.result());
-  printf("\n");
+  printf(" Hash took %f \n",(sha1.millis() - ms));
   
   printf("Test: RFC3174 7.3 TEST4\n");
   printf("Expect:dea356a2cddd90c7a7ecedc5ebb563934f460452\n");
@@ -65,16 +67,17 @@ int main(int argc, char** argv)
   Sha1.init();
   for (a=0; a<80; a++) Sha1.print("01234567");
   printHash(Sha1.result());
-  printf("\n");
+  printf(" Hash took %f \n",(sha1.millis() - ms));
 
   // HMAC tests
   printf("Test: FIPS 198a A.1\n");
   printf("Expect:4f4ca3d5d68ba7cc0a1208c9c61e9c5da0403c0a\n");
   printf("Result:");
+  ms = sha1.millis();
   Sha1.initHmac(hmacKey1,64);
   Sha1.print("Sample #1");
   printHash(Sha1.resultHmac());
-  printf("\n");
+  printf(" Hash took %f \n",(sha1.millis() - ms));
 
   printf("Test: FIPS 198a A.2\n");
   printf("Expect:0922d3405faa3d194f82a45830737d5cc6c75d24\n");
@@ -87,25 +90,29 @@ int main(int argc, char** argv)
   printf("Test: FIPS 198a A.3\n");
   printf("Expect:bcf41eab8bb2d802f3d05caf7cb092ecf8d1a3aa\n");
   printf("Result:");
+  ms = sha1.millis();
   Sha1.initHmac(hmacKey3,100);
   Sha1.print("Sample #3");
   printHash(Sha1.resultHmac());
-  printf("\n");
+  printf(" Hash took %f \n",(sha1.millis() - ms));
 
   printf("Test: FIPS 198a A.4\n");
   printf("Expect:9ea886efe268dbecce420c7524df32e0751a2a26\n");
   printf("Result:");
+  ms = sha1.millis();
   Sha1.initHmac(hmacKey4,49);
   Sha1.print("Sample #4");
   printHash(Sha1.resultHmac());
-  printf("\n");
+  printf(" Hash took %f \n",(sha1.millis() - ms));
  
   // Long tests 
   printf("Test: FIPS 180-2 C.3 and RFC3174 7.3 TEST3 (Processing 1000000 characters. This will take a while.)\n");
   printf("Expect:34aa973cd4c4daa4f61eeb2bdbad27316534016f\n");
   printf("Result:");
+  ms = sha1.millis();
   Sha1.init();
   for (a=0; a<1000000; a++) Sha1.write('a');
   printHash(Sha1.result());
+  printf(" Hash took %f \n",(sha1.millis() - ms));
   return 0;
 }

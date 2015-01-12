@@ -12,7 +12,7 @@ union _state {
   uint32_t w[HASH_LENGTH/4];
 };
 
-#if  (defined(__linux) || defined(linux)) && !defined(__ARDUINO_X86__)
+#if defined(SHA256_LINUX)
 class Sha256Class
 #else
 class Sha256Class : public Print
@@ -23,11 +23,12 @@ class Sha256Class : public Print
     void initHmac(const uint8_t* secret, int secretLength);
     uint8_t* result(void);
     uint8_t* resultHmac(void);
-    #if  (defined(__linux) || defined(linux)) && !defined(__ARDUINO_X86__)
+    #if  defined(SHA256_LINUX)
 	virtual size_t write(uint8_t);
 	size_t write_L(const char *str);
 	size_t write_L(const uint8_t *buffer, size_t size);
 	size_t print(const char* str);
+	double millis();
     #else
 	virtual size_t write(uint8_t);
 	using Print::write;
@@ -43,6 +44,9 @@ class Sha256Class : public Print
     uint32_t byteCount;
     uint8_t keyBuffer[BLOCK_LENGTH];
     uint8_t innerHash[HASH_LENGTH];
+    #if defined(SHA256_LINUX)
+		timeval tv;
+	#endif
 };
 extern Sha256Class Sha256;
 
