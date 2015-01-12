@@ -162,7 +162,7 @@ uint8_t* Sha1Class::resultHmac(void) {
 		return write_L(str);
 	}
 	
-	double sha1Class::millis(){
+	double Sha1Class::millis(){
 		gettimeofday(&tv, NULL);
 		return (tv.tv_sec + 0.000001 * tv.tv_usec);
 	}

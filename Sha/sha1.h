@@ -45,7 +45,7 @@ class Sha1Class : public Print
     uint8_t innerHash[HASH_LENGTH];
     #if defined(SHA1_LINUX)
 		timeval tv;
-	#endif
+    #endif
     
 };
 extern Sha1Class Sha1;

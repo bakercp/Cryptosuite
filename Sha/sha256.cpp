@@ -179,7 +179,7 @@ uint8_t* Sha256Class::resultHmac(void) {
 		return write_L(str);
 	}
 	
-	double sha256Class::millis(){
+	double Sha256Class::millis(){
 		gettimeofday(&tv, NULL);
 		return (tv.tv_sec + 0.000001 * tv.tv_usec);
 	}
