@@ -219,7 +219,7 @@ extern Sha1Class Sha1;
  * @li to hash using SHA1 and SHA256
  * @li to hash using HMAC-SHA1 and HMAC-SHA256
  *
- * @section Acknowlegments Acknowlegments
+ * @section Acknowledgements Acknowledgements
  * This is an SHA library for the Arduino, based on bakercp's SHA library, which you can find <a href= "https://github.com/bakercp/Cryptosuite">here:</a>.<br />
  * Tzikis library was based on Cathedrow`s library, which you can find <a href="https://github.com/Cathedrow/arduino">here:</a><br /> 
  * 
