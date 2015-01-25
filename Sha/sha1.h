@@ -220,12 +220,12 @@ extern Sha1Class Sha1;
  * @li to hash using HMAC-SHA1 and HMAC-SHA256
  *
  * @section Acknowlegments Acknowlegments
- * This is an SHA library for the Arduino, based on bakercp's MD5 library, which you can find <a href= "https://github.com/bakercp/Cryptosuite">here:</a>.<br />
+ * This is an SHA library for the Arduino, based on bakercp's SHA library, which you can find <a href= "https://github.com/bakercp/Cryptosuite">here:</a>.<br />
  * Tzikis library was based on Cathedrow`s library, which you can find <a href="https://github.com/Cathedrow/arduino">here:</a><br /> 
  * 
  * @section Installation Installation
  * <h3>Arduino</h3>
- * Create a folder named _MD5_ in the _libraries_ folder inside your Arduino sketch folder. If the 
+ * Create a folder named _SHA_ in the _libraries_ folder inside your Arduino sketch folder. If the 
  * libraries folder doesn't exist, create it. Then copy everything inside. (re)launch the Arduino IDE.<br />
  * You're done. Time for a mojito
  * 
