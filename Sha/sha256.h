@@ -115,11 +115,11 @@ class Sha256Class : public Print
     void hashBlock();
 	
 	/**
-     * rol32 - rotate a 32-bit value left
+     * ror32 - rotate a 32-bit value left
      * @param number value to rotate
      * @param bits bits to roll
      */
-    uint32_t rol32(uint32_t number, uint8_t bits);
+    uint32_t ror32(uint32_t number, uint8_t bits);
     _buffer buffer;/**< hold the buffer for the hashing process */
     uint8_t bufferOffset;/**< indicates the position on the buffer */
     _state state;/**< identical structure with buffer */
