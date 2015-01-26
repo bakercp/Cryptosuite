@@ -1,3 +1,5 @@
+Please see the full documentation at http://spaniakos.github.io/Cryptosuite
+
 Cryptosuite is a cryptographic library for Arduino (including SHA and HMAC-SHA)
 
 It currently supports secure hashing and hashed message authentication using SHA-1, SHA-256, HMAC-SHA-1 and HMAC-SHA-256.
