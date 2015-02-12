@@ -3,14 +3,6 @@
 
 #include "sha1_config.h"
 
-union _buffer {
-  uint8_t b[BLOCK_LENGTH];
-  uint32_t w[BLOCK_LENGTH/4];
-};
-union _state {
-  uint8_t b[HASH_LENGTH];
-  uint32_t w[HASH_LENGTH/4];
-};
 #if defined(SHA1_LINUX)
 class Sha1Class
 #else
@@ -18,6 +10,14 @@ class Sha1Class : public Print
 #endif
 {
   public:
+	union _buffer {
+		uint8_t b[BLOCK_LENGTH];
+		uint32_t w[BLOCK_LENGTH/4];
+	};
+	union _state {
+		uint8_t b[HASH_LENGTH];
+		uint32_t w[HASH_LENGTH/4];
+	};
 	/** Initialized the SHA1 process
 	 *  Set the counter and buffers
 	 */

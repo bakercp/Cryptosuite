@@ -3,15 +3,6 @@
 
 #include "sha256_config.h"
 
-union _buffer {
-  uint8_t b[BLOCK_LENGTH];
-  uint32_t w[BLOCK_LENGTH/4];
-};
-union _state {
-  uint8_t b[HASH_LENGTH];
-  uint32_t w[HASH_LENGTH/4];
-};
-
 #if defined(SHA256_LINUX)
 class Sha256Class
 #else
@@ -19,6 +10,14 @@ class Sha256Class : public Print
 #endif
 {
   public:
+	union _buffer {
+		uint8_t b[BLOCK_LENGTH];
+		uint32_t w[BLOCK_LENGTH/4];
+	};
+	union _state {
+		uint8_t b[HASH_LENGTH];
+		uint32_t w[HASH_LENGTH/4];
+	};
     /** Initialized the SHA256 process
 	 *  Set the counter and buffers
 	 */
