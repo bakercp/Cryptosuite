@@ -1,6 +1,3 @@
-#include <string.h>
-#include <avr/io.h>
-#include <avr/pgmspace.h>
 #include "sha1.h"
 
 #define SHA1_K0 0x5a827999
@@ -75,6 +72,7 @@ void Sha1Class::addUncounted(uint8_t data) {
 size_t Sha1Class::write(uint8_t data) {
   ++byteCount;
   addUncounted(data);
+  return 0;
 }
 
 void Sha1Class::pad() {
@@ -147,4 +145,27 @@ uint8_t* Sha1Class::resultHmac(void) {
   for (i=0; i<HASH_LENGTH; i++) write(innerHash[i]);
   return result();
 }
+
+#if defined(SHA1_LINUX)
+	size_t Sha1Class::write_L(const char *str){
+		if (str == NULL) return 0;
+		return write_L((const uint8_t *)str, strlen(str));
+	}	
+	size_t Sha1Class::write_L(const uint8_t *buffer,size_t size){
+		size_t n = 0;
+		while (size--){
+			n +=write(*buffer++);
+		}
+		return n;
+	}
+	size_t Sha1Class::print(const char *str){
+		return write_L(str);
+	}
+	
+	double Sha1Class::millis(){
+		gettimeofday(&tv, NULL);
+		return (tv.tv_sec + 0.000001 * tv.tv_usec);
+	}
+#endif
+
 Sha1Class Sha1;

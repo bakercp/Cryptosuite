@@ -1,3 +1,5 @@
+Please see the full documentation at http://spaniakos.github.io/Cryptosuite
+
 Cryptosuite is a cryptographic library for Arduino (including SHA and HMAC-SHA)
 
 It currently supports secure hashing and hashed message authentication using SHA-1, SHA-256, HMAC-SHA-1 and HMAC-SHA-256.
@@ -54,3 +56,41 @@ Verification:
   HMAC-SHA-1: FIPS 198a compliant
   SHA-256: FIPS 180-2, RFC4231 compliant
   HMAC-SHA-256:  RFC4231 compliant
+
+*UPDATE** Added Intel Galileo Support
+Added printf.h so galileo can redirect to serial all the printf requests.
+
+*UPDATE** Raspberry pi support added
+### Raspberry  pi
+install
+```
+sudo make install
+cd examples_Rpi
+make
+```
+
+What to do after changes to the library
+```
+sudo make clean
+sudo make install
+cd examples_Rpi
+make clean
+make
+```
+
+What to do after changes to a sketch
+```
+cd examples_Rpi
+make <sketch>
+
+or 
+make clean
+make
+```
+
+How to start a sketch
+```
+cd examples_Rpi
+sudo ./<sketch>
+```
+

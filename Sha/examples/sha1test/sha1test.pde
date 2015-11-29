@@ -1,4 +1,6 @@
 #include "sha1.h"
+#include <Arduino.h>
+#include "./printf.h"
 
 void printHash(uint8_t* hash) {
   int i;
@@ -15,10 +17,8 @@ uint8_t hmacKey1[]={
    0x20,0x21,0x22,0x23,0x24,0x25,0x26,0x27,0x28,0x29,0x2a,0x2b,0x2c,0x2d,0x2e,0x2f,
    0x30,0x31,0x32,0x33,0x34,0x35,0x36,0x37,0x38,0x39,0x3a,0x3b,0x3c,0x3d,0x3e,0x3f
 };
-uint8_t hmacKey2[]={
-   0x30,0x31,0x32,0x33,0x34,0x35,0x36,0x37,0x38,0x39,0x3a,0x3b,0x3c,0x3d,0x3e,0x3f,
-   0x40,0x41,0x42,0x43
-};
+uint8_t *hmacKey2= (unsigned char*)"0123456789:;<=>?@ABC";
+
 uint8_t hmacKey3[]={
    0x50,0x51,0x52,0x53,0x54,0x55,0x56,0x57,0x58,0x59,0x5a,0x5b,0x5c,0x5d,0x5e,0x5f,
    0x60,0x61,0x62,0x63,0x64,0x65,0x66,0x67,0x68,0x69,0x6a,0x6b,0x6c,0x6d,0x6e,0x6f,
@@ -37,76 +37,108 @@ uint8_t hmacKey4[]={
 
 
 void setup() {
+  printf_begin();
   uint8_t* hash;
   uint32_t a;
-  
+  unsigned long ms;
   Serial.begin(9600);
 
   // SHA tests
   Serial.println("Test: FIPS 180-2 C.1 and RFC3174 7.3 TEST1");
   Serial.println("Expect:a9993e364706816aba3e25717850c26c9cd0d89d");
   Serial.print("Result:");
+  ms = micros();
   Sha1.init();
   Sha1.print("abc");
   printHash(Sha1.result());
-  Serial.println();
+  Serial.print(" Hash took : ");
+  Serial.print((micros() - ms));
+  Serial.println(" micros");
 
   Serial.println("Test: FIPS 180-2 C.2 and RFC3174 7.3 TEST2");
   Serial.println("Expect:84983e441c3bd26ebaae4aa1f95129e5e54670f1");
   Serial.print("Result:");
+  ms = micros();
   Sha1.init();
   Sha1.print("abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq");
   printHash(Sha1.result());
+  Serial.print(" Hash took : ");
+  Serial.print((micros() - ms));
+  Serial.println(" micros");
   Serial.println();
   
   Serial.println("Test: RFC3174 7.3 TEST4");
   Serial.println("Expect:dea356a2cddd90c7a7ecedc5ebb563934f460452");
   Serial.print("Result:");
+  ms = micros();
   Sha1.init();
   for (a=0; a<80; a++) Sha1.print("01234567");
   printHash(Sha1.result());
+  Serial.print(" Hash took : ");
+  Serial.print((micros() - ms));
+  Serial.println(" micros");
   Serial.println();
 
   // HMAC tests
   Serial.println("Test: FIPS 198a A.1");
   Serial.println("Expect:4f4ca3d5d68ba7cc0a1208c9c61e9c5da0403c0a");
   Serial.print("Result:");
+  ms = micros();
   Sha1.initHmac(hmacKey1,64);
   Sha1.print("Sample #1");
   printHash(Sha1.resultHmac());
+  Serial.print(" Hash took : ");
+  Serial.print((micros() - ms));
+  Serial.println(" micros");
   Serial.println();
 
   Serial.println("Test: FIPS 198a A.2");
   Serial.println("Expect:0922d3405faa3d194f82a45830737d5cc6c75d24");
   Serial.print("Result:");
+  ms = micros();
   Sha1.initHmac(hmacKey2,20);
   Sha1.print("Sample #2");
   printHash(Sha1.resultHmac());
+  Serial.print(" Hash took : ");
+  Serial.print((micros() - ms));
+  Serial.println(" micros");
   Serial.println();
 
   Serial.println("Test: FIPS 198a A.3");
   Serial.println("Expect:bcf41eab8bb2d802f3d05caf7cb092ecf8d1a3aa");
   Serial.print("Result:");
+  ms = micros();
   Sha1.initHmac(hmacKey3,100);
   Sha1.print("Sample #3");
   printHash(Sha1.resultHmac());
+  Serial.print(" Hash took : ");
+  Serial.print((micros() - ms));
+  Serial.println(" micros");
   Serial.println();
 
   Serial.println("Test: FIPS 198a A.4");
   Serial.println("Expect:9ea886efe268dbecce420c7524df32e0751a2a26");
   Serial.print("Result:");
+  ms = micros();
   Sha1.initHmac(hmacKey4,49);
   Sha1.print("Sample #4");
   printHash(Sha1.resultHmac());
+  Serial.print(" Hash took : ");
+  Serial.print((micros() - ms));
+  Serial.println(" micros");
   Serial.println();
  
   // Long tests 
   Serial.println("Test: FIPS 180-2 C.3 and RFC3174 7.3 TEST3 (Processing 1000000 characters. This will take a while.)");
   Serial.println("Expect:34aa973cd4c4daa4f61eeb2bdbad27316534016f");
   Serial.print("Result:");
+  ms = micros();
   Sha1.init();
   for (a=0; a<1000000; a++) Sha1.write('a');
   printHash(Sha1.result());
+  Serial.print(" Hash took : ");
+  Serial.print((micros() - ms));
+  Serial.println(" micros");
 }
 
 void loop() {
