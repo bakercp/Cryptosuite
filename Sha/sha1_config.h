@@ -2,7 +2,7 @@
 #define Sha1_config_h
 #include <string.h>
 
-#if (defined(__linux) || defined(linux)) && !defined(__ARDUINO_x86__)
+#if (defined(__linux) || defined(linux)) && !defined(__ARDUINO_x86__) && !defined(ARDUINO_ARCH_ESP8266)
 	#define SHA1_LINUX
 	#include <stdint.h>
 	#include <stdio.h>
@@ -13,7 +13,7 @@
 	#include "Arduino.h"
 #endif
 
-#if  (defined(__linux) || defined(linux)) || defined(__ARDUINO_X86__)
+#if (defined(__linux) || defined(linux)) || defined(__ARDUINO_X86__) || defined(ARDUINO_ARCH_ESP8266)
 	#define memcpy_P memcpy
 	#undef PROGMEM
 	#define PROGMEM __attribute__(( section(".progmem.data") ))
